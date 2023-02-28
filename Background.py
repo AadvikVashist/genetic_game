@@ -13,7 +13,6 @@ background_color = (255, 255, 255)
 
 # Fill the screen with the background color
 screen.fill(background_color)
-
 # Update the screen
 pygame.display.flip()
 
