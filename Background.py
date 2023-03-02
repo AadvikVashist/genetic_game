@@ -1,28 +1,10 @@
 import pygame
-
-# Initialize pygame
-pygame.init()
-
-# Set the dimensions of the screen
-screen_width = 640
-screen_height = 480
-screen = pygame.display.set_mode((screen_width, screen_height))
-
-# Set the background color to white
-background_color = (255, 255, 255)
-
-# Fill the screen with the background color
-screen.fill(background_color)
-# Update the screen
-pygame.display.flip()
-
-# Run the game loop
-running = True
-while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-# Quit pygame
-pygame.quit()
+class background(pygame.sprite.Sprite):
+    def __init__(self,Width,Height):
+        super().__init__()
+        self.surf = pygame.Surface((Width, 20))
+        self.surf.fill((255,0,0))
+        self.rect = self.surf.get_rect(center = (Width/2, Height - 10))
+        background_color = (255, 255, 255)
+        screen = pygame.display.set_mode((Width, Height))
+        screen.fill(background_color)
