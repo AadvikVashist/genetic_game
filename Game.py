@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import sys
 import Tank
- 
+import Target
 vec = pygame.math.Vector2 
 HEIGHT = 450
 WIDTH = 400
@@ -30,7 +30,9 @@ class Player(pygame.sprite.Sprite):
         
         self.all_sprites ={}
         a = Tank.Tank()
+        b = Target.Target(WIDTH, HEIGHT)
         self.all_sprites["tank"] = a
+        self.all_sprites["target"] = b
         self.all_sprites["bg"] = Background.background(WIDTH,HEIGHT)
         self.main()
     def main(self):
@@ -44,6 +46,7 @@ class Player(pygame.sprite.Sprite):
             self.all_sprites["tank"].move()
             all_sprites_list = pygame.sprite.Group()
             all_sprites_list.add(self.all_sprites["tank"])
+            all_sprites_list.add(self.all_sprites["target"])
             all_sprites_list.add(self.all_sprites["bg"])
 
             for entity in all_sprites_list:
