@@ -51,8 +51,8 @@ class Tank(pygame.sprite.Sprite):
             
         self.rect.midbottom = self.pos
 
-    def gravity(self):
-        if (pygame.Rect.colliderect(self.rect,  self.all_sprites["bg"].floor) == False):
+    def gravity(self, bg):
+        if (pygame.Rect.colliderect(self.rect, bg.floor) == False):
             self.acc.y = GRAV
             self.vel += self.acc
             self.pos += self.vel + 0.5 * self.acc
