@@ -15,7 +15,6 @@ JUMP = -3
 
 class Tank(pygame.sprite.Sprite):
     def __init__(self):
-        self.all_sprites["bg"] = Background.background(WIDTH,HEIGHT)
         super().__init__() 
         self.FramePerSec = pygame.time.Clock()
 
@@ -29,7 +28,7 @@ class Tank(pygame.sprite.Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
 
-    def move(self):
+    def move(self, bg):
         self.acc = vec(0,0)
     
         pressed_keys = pygame.key.get_pressed()            
@@ -37,7 +36,7 @@ class Tank(pygame.sprite.Sprite):
             self.acc.x = -ACC
         if pressed_keys[K_RIGHT]:
             self.acc.x = ACC
-        if pressed_keys[K_UP]:
+        if pressed_keys[K_UP] and (pygame.Rect.colliderect(self.rect, bg.floor) == True):
             self.vel.y = JUMP
              
         self.acc.x += self.vel.x * FRIC
@@ -56,5 +55,7 @@ class Tank(pygame.sprite.Sprite):
             self.acc.y = GRAV
             self.vel += self.acc
             self.pos += self.vel + 0.5 * self.acc
+        else:
+            self.pos.y = bg.floor.y
 
 

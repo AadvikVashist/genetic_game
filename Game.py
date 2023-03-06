@@ -35,6 +35,47 @@ class Player(pygame.sprite.Sprite):
         self.all_sprites["target"] = b
         self.all_sprites["bg"] = Background.background(WIDTH,HEIGHT)
         self.main()
+    def intersects(self, rect: pygame.Rect) -> bool:
+        if (self.ground.colliderect(rect) or
+            self.left_wall.colliderect(rect) or
+            self.right_wall.colliderect(rect) or
+            self.top_wall.colliderect(rect)):
+            return True
+        elif (rect.x < 0 or rect.y < 0 or
+                rect.x + rect.width > self.game_width or
+                rect.y + rect.height > self.game_height):
+            return True
+        else:
+            return False
+
+
+    def intersects_goal(self, rect: pygame.Rect) -> bool:
+        if (self.ground.colliderect(rect) or
+            self.left_wall.colliderect(rect) or
+            self.right_wall.colliderect(rect) or
+            self.top_wall.colliderect(rect)):
+            return True
+        elif (rect.x < 0 or rect.y < 0 or
+                rect.x + rect.width > self.game_width or
+                rect.y + rect.height > self.game_height - 200):
+            return True
+        else:
+            return False
+
+
+    def ground_intersects(self, rect: pygame.Rect) -> bool:
+        return (self.left_wall.colliderect(rect) or
+                self.right_wall.colliderect(rect) or
+                self.top_wall.colliderect(rect))
+
+
+    def left_wall_intersects(self, rect: pygame.Rect) -> bool:
+        return self.left_wall.colliderect(rect)
+
+
+    def right_wall_intersects(self, rect: pygame.Rect) -> bool:
+        return self.right_wall.colliderect(rect)
+
     def main(self):
         while True:
             for event in pygame.event.get():
@@ -43,7 +84,7 @@ class Player(pygame.sprite.Sprite):
                     sys.exit()
             self.displaysurface.fill((0,0,0))
         
-            self.all_sprites["tank"].move()
+            self.all_sprites["tank"].move(self.all_sprites["bgo"])
 
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
             self.all_sprites["tank"].gravity(self.all_sprites["bg"])
@@ -62,4 +103,5 @@ class Player(pygame.sprite.Sprite):
             
             pygame.display.update()
             self.FramePerSec.tick(self.FPS)
-Player()
+if __name__ == '__main__':
+    P1 = Player()
