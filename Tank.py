@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
+import Background
  
 pygame.init()
  
@@ -9,11 +10,15 @@ HEIGHT = 450
 WIDTH = 400
 ACC = 0.5
 FRIC = -0.12
+GRAV = 0.1
+JUMP = -3
 
 class Tank(pygame.sprite.Sprite):
     def __init__(self):
+        self.all_sprites["bg"] = Background.background(WIDTH,HEIGHT)
         super().__init__() 
         self.FramePerSec = pygame.time.Clock()
+
 
         self.displaysurface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.surf = pygame.Surface((30, 30))
@@ -32,6 +37,8 @@ class Tank(pygame.sprite.Sprite):
             self.acc.x = -ACC
         if pressed_keys[K_RIGHT]:
             self.acc.x = ACC
+        if pressed_keys[K_UP]:
+            self.vel.y = JUMP
              
         self.acc.x += self.vel.x * FRIC
         self.vel += self.acc
@@ -43,3 +50,11 @@ class Tank(pygame.sprite.Sprite):
             self.pos.x = WIDTH
             
         self.rect.midbottom = self.pos
+
+    def gravity(self):
+        if (pygame.Rect.colliderect(self.rect,  self.all_sprites["bg"].floor) == False):
+            self.acc.y = GRAV
+            self.vel += self.acc
+            self.pos += self.vel + 0.5 * self.acc
+
+

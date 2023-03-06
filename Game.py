@@ -42,12 +42,20 @@ class Player(pygame.sprite.Sprite):
             self.displaysurface.fill((0,0,0))
         
             self.all_sprites["tank"].move()
+
+            # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
+            self.all_sprites["tank"].gravity()
+
             all_sprites_list = pygame.sprite.Group()
             all_sprites_list.add(self.all_sprites["tank"])
             all_sprites_list.add(self.all_sprites["bg"])
 
             for entity in all_sprites_list:
-                self.displaysurface.blit(entity.surf, entity.rect)
+                try:
+                    self.displaysurface.blit(entity.surf, entity.floor)
+                except:
+                  self.displaysurface.blit(entity.surf, entity.rect)
+ 
             
             pygame.display.update()
             self.FramePerSec.tick(self.FPS)
