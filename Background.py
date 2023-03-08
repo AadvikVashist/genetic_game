@@ -8,3 +8,16 @@ class background(pygame.sprite.Sprite):
         background_color = (255, 255, 255)
         screen = pygame.display.set_mode((Width, Height))
         screen.fill(background_color)
+
+
+        bg_img = pygame.image.load('tankBg.jpeg')
+        bg_img = pygame.transform.scale(bg_img,(Width,Height))
+        
+
+        running = True
+        while running:
+            screen.blit(bg_img,(0,0))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+            pygame.display.update()
