@@ -84,7 +84,7 @@ class Player(pygame.sprite.Sprite):
                     sys.exit()
             self.displaysurface.fill((0,0,0))
         
-            self.all_sprites["tank"].move(self.all_sprites["bgo"])
+            self.all_sprites["tank"].move(self.all_sprites["bg"])
 
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
             self.all_sprites["tank"].gravity(self.all_sprites["bg"])
