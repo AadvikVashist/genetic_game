@@ -3,6 +3,7 @@ from pygame.locals import *
 import sys
 import Tank
 import Target
+import Projectile
 vec = pygame.math.Vector2 
 HEIGHT = 450
 WIDTH = 400
@@ -31,8 +32,10 @@ class Player(pygame.sprite.Sprite):
         self.all_sprites ={}
         a = Tank.Tank(WIDTH,HEIGHT)
         b = Target.Target(WIDTH, HEIGHT)
+        c = Projectile.Projectile()
         self.all_sprites["tank"] = a
         self.all_sprites["target"] = b
+        self.all_sprites["projectile"] = c
         self.all_sprites["bg"] = Background.background(WIDTH,HEIGHT)
         self.main()
     def main(self):
@@ -45,14 +48,17 @@ class Player(pygame.sprite.Sprite):
         
             self.all_sprites["tank"].move(self.all_sprites["bg"])
             self.all_sprites["target"].move(self.all_sprites["bg"])
+            self.all_sprites["projectile"].move(self.all_sprites["bg"])
 
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
             self.all_sprites["tank"].gravity(self.all_sprites["bg"])
+            self.all_sprites["projectile"].gravity(self.all_sprites["bg"])
 
             all_sprites_list = pygame.sprite.Group()
             all_sprites_list.add(self.all_sprites["tank"])
             all_sprites_list.add(self.all_sprites["target"])
             all_sprites_list.add(self.all_sprites["bg"])
+            all_sprites_list.add(self.all_sprites["projectile"])
 
             for entity in all_sprites_list:
                 try:
