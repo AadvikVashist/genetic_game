@@ -20,7 +20,7 @@ class Target(pygame.sprite.Sprite):
         self.FPS = 60
         self.pos = vec((10, 50))
         self.vel = vec(0,0)
-        self.acc = vec(1,0)
+        self.acc = vec(0.5,0)
 
     def move(self, bg):
         self.vel += self.acc
@@ -28,10 +28,10 @@ class Target(pygame.sprite.Sprite):
         self.pos += self.vel + 0.5 * self.acc
         if self.pos.x > self.width:
             self.pos.x = self.width
-            self.acc = vec(-1,0)
+            self.acc = vec(-0.4,0)
         if self.pos.x < 0:
             self.pos.x = 0
-            self.acc = vec(1,0)
+            self.acc = vec(0.4,0)
             
         self.rect.midbottom = self.pos
         # self.win_animation( bg)
