@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.acc = vec(0,0)
         
         self.all_sprites ={}
-        a = Tank.Tank()
+        a = Tank.Tank(WIDTH,HEIGHT)
         b = Target.Target(WIDTH, HEIGHT)
         self.all_sprites["tank"] = a
         self.all_sprites["target"] = b
@@ -85,6 +85,7 @@ class Player(pygame.sprite.Sprite):
             self.displaysurface.fill((0,0,0))
         
             self.all_sprites["tank"].move(self.all_sprites["bg"])
+            self.all_sprites["target"].move(self.all_sprites["bg"])
 
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
             self.all_sprites["tank"].gravity(self.all_sprites["bg"])

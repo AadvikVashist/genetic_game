@@ -6,20 +6,20 @@ import Background
 pygame.init()
  
 vec = pygame.math.Vector2 
-HEIGHT = 450
-WIDTH = 400
 ACC = 0.5
 FRIC = -0.12
 GRAV = 0.1
-JUMP = -3
+JUMP = -2
 
 class Tank(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, width, height):
         super().__init__() 
+        self.width = width
+        self.height = height
         self.FramePerSec = pygame.time.Clock()
+        self.index = 0
 
-
-        self.displaysurface = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.displaysurface = pygame.display.set_mode((width, height))
         self.surf = pygame.Surface((30, 30))
         self.surf.fill((128,255,40))
         self.rect = self.surf.get_rect()
@@ -43,13 +43,13 @@ class Tank(pygame.sprite.Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
          
-        if self.pos.x > WIDTH:
+        if self.pos.x > self.width:
             self.pos.x = 0
         if self.pos.x < 0:
-            self.pos.x = WIDTH
+            self.pos.x = self.width
             
         self.rect.midbottom = self.pos
-
+        # self.win_animation( bg)
     def gravity(self, bg):
         if (pygame.Rect.colliderect(self.rect, bg.floor) == False):
             self.acc.y = GRAV
@@ -57,5 +57,16 @@ class Tank(pygame.sprite.Sprite):
             self.pos += self.vel + 0.5 * self.acc
         else:
             self.pos.y = bg.floor.y
+    
+    def win_animation(self, bg):
+        self.index+=1
+        if (pygame.Rect.colliderect(self.rect, bg.floor) == False):
+            self.acc.y = GRAV
+            self.vel += self.acc
+            self.pos += self.vel + 0.5 * self.acc
+        else:
+            self.pos.y = bg.floor.y
+            JUMP = -1
+            self.vel.y = JUMP
 
 

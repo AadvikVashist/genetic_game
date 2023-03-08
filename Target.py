@@ -1,23 +1,44 @@
 import random
 import pygame
+from pygame.locals import *
+vec = pygame.math.Vector2 
+ACC = 0.5
+FRIC = 0.92
+GRAV = 0.1
+
 class Target(pygame.sprite.Sprite):
-    def __init__(self,width, height):
-        super().__init__()
+    def __init__(self, width, height):
+        super().__init__() 
         self.width = width
         self.height = height
-        self.surf = pygame.Surface((20, 10))
-        self.surf.fill((255, 255, 255))
-        self.rect = self.surf.get_rect(
-            center=(
-                random.randint(self.width + 20, self.width + 100),
-                random.randint(0, self.height),
-            )
-        )
-        self.speed = random.randint(5, 20)
+        self.FramePerSec = pygame.time.Clock()
+        self.index = 0
+        self.displaysurface = pygame.display.set_mode((width, height))
+        self.surf = pygame.Surface((30, 30))
+        self.surf.fill((0,100,100))
+        self.rect = self.surf.get_rect()
+        self.FPS = 60
+        self.pos = vec((10, 50))
+        self.vel = vec(0,0)
+        self.acc = vec(1,0)
 
-    # Move the sprite based on speed
-    # Remove the sprite when it passes the left edge of the screen
-    def update(self):
-        self.rect.move_ip(-self.speed, 0)
-        if self.rect.right < 0:
-            self.kill()
+    def move(self, bg):
+        self.vel += self.acc
+        self.vel*=FRIC
+        self.pos += self.vel + 0.5 * self.acc
+        if self.pos.x > self.width:
+            self.pos.x = self.width
+            self.acc = vec(-1,0)
+        if self.pos.x < 0:
+            self.pos.x = 0
+            self.acc = vec(1,0)
+            
+        self.rect.midbottom = self.pos
+        # self.win_animation( bg)
+    def gravity(self, bg):
+        if (pygame.Rect.colliderect(self.rect, bg.floor) == False):
+            self.acc.y = GRAV
+            self.vel += self.acc
+            self.pos += self.vel + 0.5 * self.acc
+        else:
+            self.pos.y = bg.floor.y
