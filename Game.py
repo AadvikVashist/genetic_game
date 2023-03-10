@@ -32,10 +32,10 @@ class Player(pygame.sprite.Sprite):
         self.all_sprites ={}
         a = Tank.Tank(WIDTH,HEIGHT)
         b = Target.Target(WIDTH, HEIGHT)
-        c = Projectile.Projectile()
+        #c = Projectile.Projectile()
         self.all_sprites["tank"] = a
         self.all_sprites["target"] = b
-        self.all_sprites["projectile"] = c
+        #self.all_sprites["projectile"] = c
         self.all_sprites["bg"] = Background.background(WIDTH,HEIGHT)
         self.main()
     def main(self):
@@ -48,6 +48,7 @@ class Player(pygame.sprite.Sprite):
         
             self.all_sprites["tank"].move(self.all_sprites["bg"])
             self.all_sprites["target"].move(self.all_sprites["bg"])
+            self.all_sprites["bg"].draw()
             self.all_sprites["projectile"].move(self.all_sprites["bg"])
 
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
@@ -55,9 +56,9 @@ class Player(pygame.sprite.Sprite):
             self.all_sprites["projectile"].gravity(self.all_sprites["bg"])
 
             all_sprites_list = pygame.sprite.Group()
+            all_sprites_list.add(self.all_sprites["bg"])
             all_sprites_list.add(self.all_sprites["tank"])
             all_sprites_list.add(self.all_sprites["target"])
-            all_sprites_list.add(self.all_sprites["bg"])
             all_sprites_list.add(self.all_sprites["projectile"])
 
             for entity in all_sprites_list:
@@ -65,7 +66,10 @@ class Player(pygame.sprite.Sprite):
                     self.displaysurface.blit(entity.surf, entity.floor)
                 except:
                   self.displaysurface.blit(entity.surf, entity.rect)
- 
+                try:
+                    self.displaysurface.blit(entity.bg_img, (0,0))
+                except:
+                    pass
             
             pygame.display.update()
             self.FramePerSec.tick(self.FPS)
