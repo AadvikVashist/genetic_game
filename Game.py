@@ -48,6 +48,7 @@ class Player(pygame.sprite.Sprite):
         
             self.all_sprites["tank"].move(self.all_sprites["bg"])
             self.all_sprites["target"].move(self.all_sprites["bg"])
+            self.all_sprites["bg"].draw()
             self.all_sprites["projectile"].move(self.all_sprites["bg"])
             self.all_sprites["projectile"].new_bullet(15,60,(255,255,255),self.all_sprites["tank"].pos,10)
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
@@ -67,9 +68,12 @@ class Player(pygame.sprite.Sprite):
                         self.displaysurface.blit(entity.surf, entity.rect)
                     except:
                         pass
+                try:
+                    self.displaysurface.blit(entity.bg_img, (0,0))
+                except:
+                    pass
             self.all_sprites["projectile"].draw(self.displaysurface)
 
-            
             pygame.display.update()
             self.FramePerSec.tick(self.FPS)
 Player()

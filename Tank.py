@@ -27,6 +27,9 @@ class Tank(pygame.sprite.Sprite):
         self.pos = vec((10, 385))
         self.vel = vec(0,0)
         self.acc = vec(0,0)
+        self.image = pygame.image.load('tank.png').convert()
+        self.rect = self.image.get_rect()
+        self.rect.center = 15,15
 
     def move(self, bg):
         self.acc = vec(0,0)

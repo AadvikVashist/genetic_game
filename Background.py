@@ -7,4 +7,16 @@ class background(pygame.sprite.Sprite):
         self.floor = self.surf.get_rect(center = (Width/2, Height - 10))
         background_color = (255, 255, 255)
         screen = pygame.display.set_mode((Width, Height))
-        screen.fill(background_color)
+        self.width = Width
+        self.height= Height
+        
+        
+        
+        self.bg = pygame.image.load('tankBg.jpeg')
+        self.bg_img = pygame.transform.scale(self.bg,(self.width,self.height))
+    def draw(self):
+        self.bg_img = pygame.transform.scale(self.bg,(self.width,self.height))
+        return self.bg_img, (0,0)
+        
+
+            
