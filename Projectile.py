@@ -20,6 +20,7 @@ class projectile(pygame.sprite.Sprite):
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[K_RETURN] and time.time() - self.time_since_last > 0.2:
             self.time_since_last = time.time()
+            pos.y-=15
             vel = [velocity*math.cos(math.radians(direction)),-velocity*math.sin(math.radians(direction))]
             self.projectile_list.append({"color" : color, "pos" : vec(pos), "vel" : vec(vel), "radius" : radius, "acc" : vec(0,-GRAV)})
     def draw(self,win):

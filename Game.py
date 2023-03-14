@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((128,255,40))
         self.rect = self.surf.get_rect()
         self.FPS = 60
-        self.pos = vec((10, 385))
+        self.pos = vec((10, 6005))
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         
