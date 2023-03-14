@@ -14,13 +14,19 @@ class Target(pygame.sprite.Sprite):
         self.FramePerSec = pygame.time.Clock()
         self.index = 0
         self.displaysurface = pygame.display.set_mode((width, height))
-        self.surf = pygame.Surface((30, 30))
-        self.surf.fill((0,100,100))
+        self.surf = pygame.Surface((70, 40))
+        self.surf.set_alpha(0)
+        self.surf.fill((255,255,255))
         self.rect = self.surf.get_rect()
         self.FPS = 60
         self.pos = vec((10, 50))
         self.vel = vec(0,0)
         self.acc = vec(0.5,0)
+        self.heli = pygame.image.load('Hoop.png')
+        self.heli_img = pygame.transform.scale(self.heli,(70,40))
+    def draw(self):
+        self.heli_img = pygame.transform.scale(self.heli,(70,40))
+        return self.heli_img, (0,0)
 
     def move(self, bg):
         self.vel += self.acc

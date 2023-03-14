@@ -72,6 +72,10 @@ class Player(pygame.sprite.Sprite):
                     self.displaysurface.blit(entity.bg_img, (0,0))
                 except:
                     pass
+                try:
+                    self.displaysurface.blit(entity.heli_img, entity.rect)
+                except:
+                    pass
             self.all_sprites["projectile"].draw(self.displaysurface)
 
             pygame.display.update()
