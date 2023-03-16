@@ -4,7 +4,7 @@ class background(pygame.sprite.Sprite):
         super().__init__()
         self.surf = pygame.Surface((Width, 20))
         self.surf.fill((255,0,0))
-        self.floor = self.surf.get_rect(center = (Width/2, Height - 10))
+        self.floor = self.surf.get_rect(center = (Width/2, Height - 70))
         background_color = (255, 255, 255)
         screen = pygame.display.set_mode((Width, Height))
         self.width = Width

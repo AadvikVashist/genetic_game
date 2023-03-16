@@ -28,8 +28,6 @@ class Tank(pygame.sprite.Sprite):
         self.pos = vec((40, 100))
         self.vel = vec(0,0)
         self.acc = vec(0,0)
-        # self.image = pygame.image.load('tank.png').convert()
-        # self.rect = self.image.get_rect()
         self.rect.center = 15,15
         self.tank = pygame.image.load('tank.png')
         self.tank2 = pygame.image.load('tank2.png')
@@ -59,9 +57,9 @@ class Tank(pygame.sprite.Sprite):
         self.rect.midbottom = self.pos
 
         if self.vel.x >= 0:
-            self.tank_img = pygame.transform.scale(self.tank,(70,40))
+            self.tank_img = pygame.transform.scale(self.tank,(100, 60))
         if self.vel.x < 0:
-            self.tank_img = pygame.transform.scale(self.tank2,(70,40))
+            self.tank_img = pygame.transform.scale(self.tank2,(100, 60))
         # self.win_animation( bg)
     def gravity(self, bg):
         if (pygame.Rect.colliderect(self.rect, bg.floor) == False):
