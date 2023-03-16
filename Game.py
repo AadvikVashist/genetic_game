@@ -28,7 +28,8 @@ class Player(pygame.sprite.Sprite):
         self.pos = vec((10, 6005))
         self.vel = vec(0,0)
         self.acc = vec(0,0)
-        
+        self.vecs = 10
+        self.angle = 60 
         self.all_sprites ={}
         a = Tank.Tank(WIDTH,HEIGHT)
         b = Target.Target(WIDTH, HEIGHT)
@@ -50,7 +51,17 @@ class Player(pygame.sprite.Sprite):
             self.all_sprites["target"].move(self.all_sprites["bg"])
             self.all_sprites["bg"].draw()
             self.all_sprites["projectile"].move(self.all_sprites["bg"])
-            self.all_sprites["projectile"].new_bullet(15,60,(255,255,255),self.all_sprites["tank"].pos,10)
+
+            pressed_keys = pygame.key.get_pressed()            
+            if pressed_keys[K_LEFT]:
+                self.angle += 2
+            elif pressed_keys[K_RIGHT]:
+                self.angle -= 2
+            if pressed_keys[K_UP]:
+                self.vecs += 0.5
+            elif pressed_keys[K_DOWN]:
+                self.vecs -= 0.5
+            self.all_sprites["projectile"].new_bullet(self.vecs,self.angle,(255,255,255),self.all_sprites["tank"].pos,10)
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
             self.all_sprites["tank"].gravity(self.all_sprites["bg"])
 

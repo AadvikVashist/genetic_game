@@ -40,11 +40,11 @@ class Tank(pygame.sprite.Sprite):
         self.acc = vec(0,0)
     
         pressed_keys = pygame.key.get_pressed()            
-        if pressed_keys[K_LEFT]:
+        if pressed_keys[K_a]:
             self.acc.x = -ACC
-        if pressed_keys[K_RIGHT]:
+        if pressed_keys[K_d]:
             self.acc.x = ACC
-        if pressed_keys[K_UP] and (pygame.Rect.colliderect(self.rect, bg.floor) == True):
+        if pressed_keys[K_w] and (pygame.Rect.colliderect(self.rect, bg.floor) == True):
             self.vel.y = JUMP
              
         self.acc.x += self.vel.x * FRIC
