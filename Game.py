@@ -50,7 +50,9 @@ class Player(pygame.sprite.Sprite):
             self.all_sprites["tank"].move(self.all_sprites["bg"])
             self.all_sprites["target"].move(self.all_sprites["bg"])
             self.all_sprites["bg"].draw()
-            self.all_sprites["projectile"].move(self.all_sprites["bg"])
+            self.all_sprites["projectile"].move(self.all_sprites["bg"],self.all_sprites["target"])
+            score = self.all_sprites["projectile"].show_score()
+            font = pygame.font.SysFont("Railway", 35,True) #bold, bigger
 
             pressed_keys = pygame.key.get_pressed()            
             if pressed_keys[K_LEFT]:
@@ -61,6 +63,14 @@ class Player(pygame.sprite.Sprite):
                 self.vecs += 0.5
             elif pressed_keys[K_DOWN]:
                 self.vecs -= 0.5
+            if self.vecs >= 30:
+                self.vecs = 30
+            elif self.vecs <= 2:
+                self.vecs = 2
+            if self.angle >= 180:
+                self.angle = 180
+            elif self.angle < 0:
+                self.angle = 0
             self.all_sprites["projectile"].new_bullet(self.vecs,self.angle,(255,255,255),self.all_sprites["tank"].pos,10)
             # if (pygame.Rect.colliderect(self.all_sprites["tank"].rect,  self.all_sprites["bg"].floor) == False):
             self.all_sprites["tank"].gravity(self.all_sprites["bg"])
@@ -70,7 +80,9 @@ class Player(pygame.sprite.Sprite):
             all_sprites_list.add(self.all_sprites["tank"])
             all_sprites_list.add(self.all_sprites["target"])
             all_sprites_list.add(self.all_sprites["projectile"])
-
+            score_surf = font.render("Score: " +str(score), True, (255,105,180)) #other color
+            score_rect = score_surf.get_rect(topright = (WIDTH - 20, 30))
+            
             for entity in all_sprites_list:
                 try:
                     self.displaysurface.blit(entity.surf, entity.floor)
@@ -92,6 +104,7 @@ class Player(pygame.sprite.Sprite):
                 except:
                     pass
             self.all_sprites["projectile"].draw(self.displaysurface)
+            self.displaysurface.blit(score_surf, score_rect)
 
             pygame.display.update()
             self.FramePerSec.tick(self.FPS)

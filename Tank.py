@@ -7,7 +7,7 @@ pygame.init()
  
 vec = pygame.math.Vector2 
 ACC = 0.5
-FRIC = -0.12
+FRIC = -0.06
 GRAV = 0.1
 JUMP = -2
 
