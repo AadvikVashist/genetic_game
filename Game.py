@@ -95,4 +95,5 @@ class Player(pygame.sprite.Sprite):
 
             pygame.display.update()
             self.FramePerSec.tick(self.FPS)
-Player()
+if __name__ == "__main__":
+    Player()

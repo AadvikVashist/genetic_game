@@ -74,7 +74,9 @@ def main():
 
 def title_screen(screen):
     button_quit = UIElement(center_position=(400, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="QUIT",action = GameState.QUIT)
-    button_start = UIElement(center_position=(400, 200),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="START",action = GameState.NEWGAME)
+    button_start = UIElement(center_position=(400, 500),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="START",action = GameState.NEWGAME)
+
+    buttons = [button_start, button_quit]
 
     while True:
         mouse_up = False
@@ -83,15 +85,11 @@ def title_screen(screen):
                 mouse_up = True
         screen.fill(BG_COLOR)
 
-        ui_action = button_quit.update(pygame.mouse.get_pos(), mouse_up)
-        if ui_action is not None:
-            return ui_action
-        button_quit.draw(screen)
-
-        ui_action = button_start.update(pygame.mouse.get_pos(), mouse_up)
-        if ui_action is not None:
-            return ui_action
-        button_quit.draw(screen)
+        for button in buttons:
+            ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+            if ui_action is not None:
+                return ui_action
+            button_quit.draw(screen)
         
         pygame.display.flip()
 
