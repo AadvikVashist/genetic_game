@@ -5,8 +5,8 @@ import Tank
 import Target
 import Projectile
 vec = pygame.math.Vector2 
-HEIGHT = 450
-WIDTH = 400
+HEIGHT = 750
+WIDTH = 900
 ACC = 0.5
 FRIC = -0.12
 

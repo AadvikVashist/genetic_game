@@ -23,9 +23,9 @@ class Target(pygame.sprite.Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0.5,0)
         self.heli = pygame.image.load('Hoop.png')
-        self.heli_img = pygame.transform.scale(self.heli,(70,40))
+        self.heli_img = pygame.transform.scale(self.heli,(100,60))
     def draw(self):
-        self.heli_img = pygame.transform.scale(self.heli,(70,40))
+        self.heli_img = pygame.transform.scale(self.heli,(100,60))
         return self.heli_img, (0,0)
 
     def move(self, bg):
