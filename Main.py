@@ -59,22 +59,22 @@ def main():
 
     screen = pygame.display.set_mode((800, 600))
 
-    game_state = GameState.TITLE
+    game_state = 0
 
     while True: 
-        if game_state == GameState.TITLE:
+        if game_state == 0:
             game_state = title_screen(screen)
 
-        if game_state == GameState.NEWGAME:
+        if game_state == 1:
             game_state = play(screen)
 
-        if game_state == GameState.QUIT:
+        if game_state == -1:
             pygame.quit()
             return
 
 def title_screen(screen):
-    button_quit = UIElement(center_position=(400, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="QUIT",action = GameState.QUIT)
-    button_start = UIElement(center_position=(400, 200),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="START",action = GameState.NEWGAME)
+    button_quit = UIElement(center_position=(500, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="QUIT",action = -1)
+    button_start = UIElement(center_position=(300, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="START",action = 1)
 
     while True:
         mouse_up = False
@@ -88,20 +88,15 @@ def title_screen(screen):
             return ui_action
         button_quit.draw(screen)
 
-        ui_action = button_start.update(pygame.mouse.get_pos(), mouse_up)
-        if ui_action is not None:
-            return ui_action
-        button_quit.draw(screen)
+        ui_action1 = button_start.update(pygame.mouse.get_pos(), mouse_up)
+        if ui_action1 is not None:
+            return ui_action1
+        button_start.draw(screen)
         
         pygame.display.flip()
 
 def play(screen):
     P1 = Game.Player()
-
-class GameState(Enum):
-    QUIT = -1
-    TITLE = 0
-    NEWGAME = 1
 
 if __name__ == "__main__":
     main()
