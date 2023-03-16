@@ -14,6 +14,7 @@ class projectile(pygame.sprite.Sprite):
         self.acc = vec(0,GRAV)
         self.width = width
         self.height = height
+        self.score = 0
         self.time_since_last = time.time()
 
     def new_bullet(self, velocity, direction, color, pos,radius):
@@ -21,6 +22,7 @@ class projectile(pygame.sprite.Sprite):
         if pressed_keys[K_SPACE] and time.time() - self.time_since_last > 0.2:
             self.time_since_last = time.time()
             pos.y-=15
+
             vel = [velocity*math.cos(math.radians(direction)),-velocity*math.sin(math.radians(direction))]
             self.projectile_list.append({"color" : color, "pos" : vec(pos), "vel" : vec(vel), "radius" : radius, "acc" : vec(0,GRAV)})
     def draw(self,win):
@@ -28,7 +30,7 @@ class projectile(pygame.sprite.Sprite):
         for i in self.projectile_list: #0 is x and y is 1  2 is radius 
             chars.append(pygame.draw.circle(win, i["color"], i["pos"], i["radius"]))
         return chars
-    def move(self, bg):
+    def move(self, bg, target):
         index = 0
         while index < len(self.projectile_list):
             if self.projectile_list[index]["pos"].y < bg.floor.top:
@@ -38,9 +40,16 @@ class projectile(pygame.sprite.Sprite):
                 if self.projectile_list[index]["pos"].x > self.width or self.projectile_list[index]["pos"].x < 0:
                     del self.projectile_list[index]
                 else:
-                    index+=1         
+                    if target.rect.colliderect(pygame.Rect(*self.projectile_list[index]["pos"],self.projectile_list[index]["radius"],self.projectile_list[index]["radius"])):
+                        self.score += 1
+                        del self.projectile_list[index]
+                    else:
+                        index+=1         
             else:
                 self.projectile_list[index]["acc"] =  vec(0,0)
                 del self.projectile_list[index]
        
         # self.win_animation( bg)
+
+    def show_score(self):
+        return self.score
