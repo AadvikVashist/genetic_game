@@ -28,8 +28,6 @@ class Tank(pygame.sprite.Sprite):
         self.pos = vec((40, 100))
         self.vel = vec(0,0)
         self.acc = vec(0,0)
-        # self.image = pygame.image.load('tank.png').convert()
-        # self.rect = self.image.get_rect()
         self.rect.center = 15,15
         self.tank = pygame.image.load('tank.png')
         self.tank2 = pygame.image.load('tank2.png')
