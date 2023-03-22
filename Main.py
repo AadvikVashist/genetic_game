@@ -73,12 +73,45 @@ def main():
             return
 
 def title_screen(screen):
-    #instructions_text = UIElement(center_position=(400, 200),font_size=15,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="Click start to play. Use AWSD to control the tank, the arrows to control the projectile and space bar to shoot. As you hit the helicopter, the score will increase.")
+    instructions_text1 = UIElement(
+        center_position=(400, 200),
+        font_size=15,
+        bg_rgb=BG_COLOR,
+        text_rgb=TXT_COLOR,
+        text="As you hit the helicopter, the score will increase."
+    )
+    instructions_text2 = UIElement(
+        center_position=(400, 216),
+        font_size=15,
+        bg_rgb=BG_COLOR,
+        text_rgb=TXT_COLOR,
+        text="AWSD: control the tank"
+    )
+    instructions_text3 = UIElement(
+        center_position=(400, 232),
+        font_size=15,
+        bg_rgb=BG_COLOR,
+        text_rgb=TXT_COLOR,
+        text="Arrows: control the projectile"
+    )
+    instructions_text4 = UIElement(
+        center_position=(400, 248),
+        font_size=15,
+        bg_rgb=BG_COLOR,
+        text_rgb=TXT_COLOR,
+        text="Space Bar: shoot"
+    )
+    instructions_text5 = UIElement(
+        center_position=(400, 264),
+        font_size=15,
+        bg_rgb=BG_COLOR,
+        text_rgb=TXT_COLOR,
+        text="Click start to play."
+    )
     button_quit = UIElement(center_position=(500, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="QUIT",action = -1)
     button_start = UIElement(center_position=(300, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="START",action = 1)
 
     while True:
-        #screen.blit(text, textRect)
         mouse_up = False
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -94,6 +127,17 @@ def title_screen(screen):
         if ui_action1 is not None:
             return ui_action1
         button_start.draw(screen)
+
+        instructions_text1.update(pygame.mouse.get_pos(), True)
+        instructions_text1.draw(screen)
+        instructions_text2.update(pygame.mouse.get_pos(), True)
+        instructions_text2.draw(screen)
+        instructions_text3.update(pygame.mouse.get_pos(), True)
+        instructions_text3.draw(screen)
+        instructions_text4.update(pygame.mouse.get_pos(), True)
+        instructions_text4.draw(screen)
+        instructions_text5.update(pygame.mouse.get_pos(), True)
+        instructions_text5.draw(screen)
         
         pygame.display.flip()
 
