@@ -73,10 +73,12 @@ def main():
             return
 
 def title_screen(screen):
+    #instructions_text = UIElement(center_position=(400, 200),font_size=15,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="Click start to play. Use AWSD to control the tank, the arrows to control the projectile and space bar to shoot. As you hit the helicopter, the score will increase.")
     button_quit = UIElement(center_position=(500, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="QUIT",action = -1)
     button_start = UIElement(center_position=(300, 400),font_size=30,bg_rgb=BG_COLOR,text_rgb=TXT_COLOR,text="START",action = 1)
 
     while True:
+        #screen.blit(text, textRect)
         mouse_up = False
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
